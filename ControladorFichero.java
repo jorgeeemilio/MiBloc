@@ -22,7 +22,7 @@ public class ControladorFichero implements ActionListener, WindowListener
 		vistaFichero.ventana.addWindowListener(this);
 		vistaFichero.btnCargar.addActionListener(this);
 		vistaFichero.btnGuardar.addActionListener(this);
-		vistaFichero.mensajes.addWindowListener(this);
+		vistaFichero.dlgMensajes.addWindowListener(this);
 	}
 
 	@Override
@@ -34,9 +34,9 @@ public class ControladorFichero implements ActionListener, WindowListener
 	@Override
 	public void windowClosing(WindowEvent arg0)
 	{
-		if(vistaFichero.mensajes.isActive())
+		if(vistaFichero.dlgMensajes.isActive())
 		{
-			vistaFichero.mensajes.setVisible(false);
+			vistaFichero.dlgMensajes.setVisible(false);
 		}
 		else
 		{
@@ -66,7 +66,7 @@ public class ControladorFichero implements ActionListener, WindowListener
 			try
 			{
 				//Origen de los datos en el proyecto anterior
-				FileReader fr = new FileReader(vistaFichero.nombreFichero.getText());
+				FileReader fr = new FileReader(vistaFichero.txtNombreFichero.getText());
 				//Buffer de lectura
 				BufferedReader entrada = new BufferedReader(fr);
 				String s;
@@ -93,7 +93,7 @@ public class ControladorFichero implements ActionListener, WindowListener
 			}
 			finally
 			{
-				vistaFichero.mensajes.setVisible(true);
+				vistaFichero.dlgMensajes.setVisible(true);
 			}
 		}
 		else if(evento.getSource().equals(vistaFichero.btnGuardar))
