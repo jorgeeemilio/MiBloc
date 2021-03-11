@@ -5,9 +5,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class ControladorFichero implements ActionListener, WindowListener
 {
@@ -98,7 +101,31 @@ public class ControladorFichero implements ActionListener, WindowListener
 		}
 		else if(evento.getSource().equals(vistaFichero.btnGuardar))
 		{
-
+			//FileWriter también puede lanzar una excepción
+			try
+			{
+				// Destino de los datos
+				FileWriter fw = new FileWriter(vistaFichero.txtNombreFichero.getText());
+				// Buffer de escritura
+				BufferedWriter bw = new BufferedWriter(fw);
+				// Objeto para la escritura
+				PrintWriter salida = new PrintWriter(bw);
+				//Guardamos la primera línea
+				salida.println(vistaFichero.txaTexto.getText());
+				//Cerrar el objeto salida, el objeto bw y el fw
+				salida.close();
+				bw.close();
+				fw.close();
+				vistaFichero.lblMensaje.setText("¡Archivo creado correctamente!");
+			}
+			catch(IOException i)
+			{
+				vistaFichero.lblMensaje.setText("Se produjo un error de Archivo");
+			}
+			finally
+			{
+				vistaFichero.dlgMensajes.setVisible(true);
+			}
 		}
 	}
 }
